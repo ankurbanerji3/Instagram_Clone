@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from post.views import index, NewPost, PostDetail, Tags, like, favourite
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
     path('<uuid:post_id>/like', like, name='like'),
     path('<uuid:post_id>/favourite', favourite, name='favourite'),
 
+    #google authentication
+    path('accounts/', include('allauth.urls'))
 ]

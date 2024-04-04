@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
@@ -13,4 +13,7 @@ urlpatterns = [
     path('sign-in/', auth_views.LoginView.as_view(template_name="sign-in.html", redirect_authenticated_user=True), name='sign-in'),
     # path('sign-out/', auth_views.LogoutView.as_view(template_name="sign-out.html"), name='sign-out'), 
     path('sign-out/', user_logout, name='sign-out'),
+
+    #google authentication
+    path('accounts/', include('allauth.urls'))
 ]

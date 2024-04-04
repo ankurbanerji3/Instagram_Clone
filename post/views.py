@@ -62,9 +62,12 @@ def NewPost(request):
     tags_obj = []
     
     if request.method == "POST":
-        form = NewPostform(request.POST, request.FILES)
+        print("Inside POST")
+        form = NewPostform(request.POST)
+        print(form.is_valid())
         if form.is_valid():
-            picture = form.cleaned_data.get('picture')
+            print("Inside form is valid")
+            # picture = form.cleaned_data.get('picture')
             caption = form.cleaned_data.get('caption')
             tag_form = form.cleaned_data.get('tags')
             tag_list = list(tag_form.split(','))
@@ -72,11 +75,13 @@ def NewPost(request):
             for tag in tag_list:
                 t, created = Tag.objects.get_or_create(title=tag)
                 tags_obj.append(t)
-            p, created = Post.objects.get_or_create(picture=picture, caption=caption, user=user)
+            # p, created = Post.objects.get_or_create(picture=picture, caption=caption, user=user)
+            p, created = Post.objects.get_or_create(caption=caption, user=user)
             p.tags.set(tags_obj)
             p.save()
             return redirect('profile', request.user.username)
     else:
+        print("else")
         form = NewPostform()
     context = {
         'form': form

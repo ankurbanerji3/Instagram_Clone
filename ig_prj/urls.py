@@ -34,6 +34,9 @@ urlpatterns = [
     path('<username>/saved/', UserProfile, name='profilefavourite'),
     path('<username>/follow/<option>/', follow, name='follow'),
 
+    #google authentication
+    path('accounts/', include('allauth.urls'))
+
 ]
 
 # This is used for
